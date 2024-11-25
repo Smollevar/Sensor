@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories("ru.dmitrii.springcourse.SensorRestAPI.repositories")
-public class FirstRestAppApplication {
+public class SensorRestAPI {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstRestAppApplication.class, args);
+		SpringApplication.run(SensorRestAPI.class, args);
 	}
 
 }
