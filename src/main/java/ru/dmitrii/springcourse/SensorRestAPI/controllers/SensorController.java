@@ -5,18 +5,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.dmitrii.springcourse.SensorRestAPI.dto.SensorDTO;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.services.SensorService;
-
-import java.util.List;
-
-import static ru.dmitrii.springcourse.SensorRestAPI.dto.SensorDTO.collectErrorMessage;
+import ru.dmitrii.springcourse.SensorRestAPI.util.SensorErrorResponse;
+import ru.dmitrii.springcourse.SensorRestAPI.util.SensorNotCreatedException;
 
 @RestController
 @RequestMapping("/sensors")
@@ -30,13 +24,27 @@ public class SensorController {
         this.modelMapper = modelMapper;
     }
 
+    // todo create method to send http query via RestTemplate...
+
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> registration(@RequestBody @Valid SensorDTO sensorDTO,
                                                    BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) collectErrorMessage(bindingResult);
-        // if () todo collision by name...
+        if (bindingResult.hasErrors()) throw SensorDTO.collectErrorMessage(bindingResult);
+//        if (sensorService.findByName().equals(sensorDTO.getName())) {
+//
+//            // todo collision by name...
+//        }
         sensorService.save(convertToSensor(sensorDTO));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<SensorErrorResponse> handleExceptionNotCreated(SensorNotCreatedException e) {
+        SensorErrorResponse response = new SensorErrorResponse(
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     public Sensor convertToSensor(SensorDTO sensorDTO) {

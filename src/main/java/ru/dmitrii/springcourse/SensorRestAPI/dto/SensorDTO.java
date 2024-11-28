@@ -1,19 +1,17 @@
 package ru.dmitrii.springcourse.SensorRestAPI.dto;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import ru.dmitrii.springcourse.SensorRestAPI.util.SensorHasWrongName;
+import ru.dmitrii.springcourse.SensorRestAPI.util.SensorNotCreatedException;
 
 import java.util.List;
 import java.util.Objects;
 
 public class SensorDTO {
 
-    @Column(name = "name")
+    @NotEmpty(message = "Name should not be empty")
     @Size(min = 3, max = 30, message = "Name should be between 3 and 30 symbols")
     private String name;
 
@@ -25,16 +23,16 @@ public class SensorDTO {
         this.name = name;
     }
 
-    public static ResponseEntity<HttpStatus> collectErrorMessage(BindingResult bindingResult) {
-        StringBuilder setErrors = new StringBuilder();
+    public static SensorNotCreatedException collectErrorMessage(BindingResult bindingResult) {
+        StringBuilder errors = new StringBuilder();
 
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         for (FieldError fieldError : fieldErrors) {
-            setErrors.append(fieldError.getField())
+            errors.append(fieldError.getField())
                     .append(" - ").append(fieldError.getDefaultMessage())
                     .append(";\n");
         }
-        throw new SensorHasWrongName(setErrors.toString());
+        return new SensorNotCreatedException(errors.toString());
     }
 
     @Override
