@@ -42,6 +42,7 @@ public class SensorDTO {
 
     public static ResponseEntity<SensorErrorResponse> handleExceptionNotCreatedDTO(SensorParentException e){
         ResponseEntity<SensorErrorResponse> re = null;
+
         if (e instanceof SensorNotCreatedException) {
             SensorErrorResponse response = new SensorErrorResponse(
                     e.getMessage(),
@@ -56,6 +57,7 @@ public class SensorDTO {
             );
             re = new ResponseEntity<>(response, HttpStatus.CONFLICT);
         }
+
         return re;
     }
 

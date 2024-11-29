@@ -31,8 +31,8 @@ public class Measurements {
     private Sensor sensor;
 
     @Timestamp
+    @Column(name = "datemeasurement")
     private Date dateMeasurement;
-
 
     public Measurements() {
     }

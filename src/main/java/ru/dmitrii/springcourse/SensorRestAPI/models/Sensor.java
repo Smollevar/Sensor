@@ -17,7 +17,7 @@ public class Sensor {
     private String name;
 
     @OneToOne(mappedBy = "sensor")
-    private Measurements measurment;
+    private Measurements measurement;
 
     public Sensor() {
     }
@@ -41,5 +41,13 @@ public class Sensor {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Measurements getMeasurement() {
+        return measurement;
+    }
+
+    public void setMeasurement(Measurements measurement) {
+        this.measurement = measurement;
     }
 }
