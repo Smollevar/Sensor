@@ -42,32 +42,8 @@ public class SensorController {
 
     @ExceptionHandler
     private ResponseEntity<SensorErrorResponse> handleExceptionNotCreated(SensorParentException e) {
-        ResponseEntity re = null;
-        if (e instanceof SensorNotCreatedException) {
-            SensorErrorResponse response = new SensorErrorResponse(
-                    e.getMessage(),
-                    System.currentTimeMillis()
-            );
-            re = new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-
-        } else if (e instanceof SensorAlreadyExist) {
-            SensorErrorResponse response = new SensorErrorResponse(
-                    "Theres already exist sensor with such name",
-                    System.currentTimeMillis()
-            );
-            re = new ResponseEntity<>(response, HttpStatus.CONFLICT);
-        }
-        return re;
+        return SensorDTO.handleExceptionNotCreatedDTO(e);
     }
-
-//    @ExceptionHandler
-//    private ResponseEntity<SensorErrorResponse> handleExceptionAlreadyExist(SensorAlreadyExist e) {
-//        SensorErrorResponse response = new SensorErrorResponse(
-//                e.getMessage(),
-//                System.currentTimeMillis()
-//        );
-//        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//    }
 
     public Sensor convertToSensor(SensorDTO sensorDTO) {
         return modelMapper.map(sensorDTO, Sensor.class);

@@ -12,11 +12,6 @@ import java.util.Optional;
 @Transactional
 public class SensorService {
 
-    /*
-    methods:
-    todo get by name from db and compare with inputed.
-     */
-
     private final SensorRepository sensorRepository;
 
     @Autowired
