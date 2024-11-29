@@ -109,4 +109,14 @@ public class MeasurementsDTO {
 
         return re;
     }
+
+    @Override
+    public String toString() {
+        return "MeasurementsDTO{" +
+                "value=" + value +
+                ", raining=" + raining +
+                ", sensor=" + sensor +
+                ", dateMeasurement=" + dateMeasurement +
+                '}';
+    }
 }

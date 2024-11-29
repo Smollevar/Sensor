@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.dmitrii.springcourse.SensorRestAPI.dto.MeasurementsDTO;
-import ru.dmitrii.springcourse.SensorRestAPI.dto.SensorDTO;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Measurements;
-import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.services.MeasurementsService;
 import ru.dmitrii.springcourse.SensorRestAPI.services.SensorService;
 import ru.dmitrii.springcourse.SensorRestAPI.util.*;
@@ -37,8 +35,8 @@ public class MeasurementsController {
     public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementsDTO measurementDTO,
                                                      BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw MeasurementsDTO.collectErrorMessage(bindingResult);
-        // todo check that sensor exist in database.
-        if (sensorService.findByName(measurementDTO.getSensor().getName()) == null)
+
+        if ((sensorService.findByName(measurementDTO.getSensor().getName()) == null) || (measurementDTO.getSensor().getName() == null))
             throw new SensorNotExist("Sensor with such name not exist");
         measurementDTO.setDateMeasurement(new Date());
         String sensorName = measurementDTO.getSensor().getName();

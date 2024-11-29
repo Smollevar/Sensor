@@ -25,7 +25,7 @@ public class Measurements {
     @NotNull(message = "filed must being filled up")
     private boolean raining;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "name", referencedColumnName = "name")
     @NotNull(message = "Each measure must have sensor")
     private Sensor sensor;

@@ -3,6 +3,8 @@ package ru.dmitrii.springcourse.SensorRestAPI.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
 @Table(name = "sensor")
 public class Sensor {
@@ -16,8 +18,8 @@ public class Sensor {
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 symbols")
     private String name;
 
-    @OneToOne(mappedBy = "sensor")
-    private Measurements measurement;
+    @OneToMany(mappedBy = "sensor")
+    private List <Measurements> measurements;
 
     public Sensor() {
     }
@@ -43,11 +45,11 @@ public class Sensor {
         this.name = name;
     }
 
-    public Measurements getMeasurement() {
-        return measurement;
+    public List <Measurements> getMeasurements() {
+        return measurements;
     }
 
-    public void setMeasurement(Measurements measurement) {
-        this.measurement = measurement;
+    public void setMeasurement(List <Measurements> measurement) {
+        this.measurements = measurements;
     }
 }

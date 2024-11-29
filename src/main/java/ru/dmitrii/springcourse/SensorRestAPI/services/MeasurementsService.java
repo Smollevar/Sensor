@@ -21,7 +21,8 @@ public class MeasurementsService {
     public void save(Measurements measurements) {
         Sensor sensor = measurements.getSensor();
         measurements.setSensor(sensor);
-        sensor.setMeasurement(measurements);
+        sensor.getMeasurements().add(measurements);
+//        sensor.setMeasurement(measurements);
         measurementsRepository.save(measurements);
         Hibernate.initialize(sensor); // todo sensor may be useful after saving measures...
     }
