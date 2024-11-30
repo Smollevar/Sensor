@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.repositories.SensorRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,10 @@ public class SensorService {
     public Sensor findByName(String name) {
         Optional <Sensor> optional = sensorRepository.findByName(name);
         return optional.orElse(null);
+    }
+
+    public List<Sensor> getAllSensors(){
+        return sensorRepository.findAll();
     }
 
     public void save(Sensor sensor) {

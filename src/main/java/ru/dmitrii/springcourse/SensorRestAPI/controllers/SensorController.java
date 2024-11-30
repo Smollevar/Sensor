@@ -14,6 +14,9 @@ import ru.dmitrii.springcourse.SensorRestAPI.util.SensorErrorResponse;
 import ru.dmitrii.springcourse.SensorRestAPI.util.SensorNotCreatedException;
 import ru.dmitrii.springcourse.SensorRestAPI.util.SensorParentException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/sensors")
 public class SensorController {
@@ -24,6 +27,16 @@ public class SensorController {
     public SensorController(SensorService sensorService, ModelMapper modelMapper) {
         this.sensorService = sensorService;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping()
+    public List<SensorDTO> getAllSensors() {
+        List<Sensor> sensors = sensorService.getAllSensors();
+        List<SensorDTO> sensorDTOs = new ArrayList<>();
+        for(Sensor sensor : sensors) {
+            sensorDTOs.add(modelMapper.map(sensor, SensorDTO.class));
+        }
+        return sensorDTOs;
     }
 
     // todo create method to send http query via RestTemplate...

@@ -3,6 +3,7 @@ package ru.dmitrii.springcourse.SensorRestAPI.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.Timestamp;
@@ -36,6 +37,14 @@ public class MeasurementsDTO {
     @Timestamp
     @Column(name = "datemeasurement")
     private Date dateMeasurement;
+
+//    @ManyToOne
+//    @JoinColumn(name = "name", referencedColumnName = "name")
+//    @NotNull(message = "Each measure must have sensor")
+//    private SensorDTO sensorDTO;
+
+    public MeasurementsDTO() {
+    }
 
     public MeasurementsDTO(float value, boolean raining, Sensor sensor, Date dateMeasurement) {
         this.value = value;

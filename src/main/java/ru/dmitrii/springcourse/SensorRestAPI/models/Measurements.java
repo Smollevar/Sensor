@@ -86,4 +86,15 @@ public class Measurements {
     public void setDateMeasurement(Date dateMeasurement) {
         this.dateMeasurement = dateMeasurement;
     }
+
+    @Override
+    public String toString() {
+        return "Measurements{" +
+                "id=" + id +
+                ", value=" + value +
+                ", raining=" + raining +
+                ", sensor Name=" + sensor.getName() +
+                ", dateMeasurement=" + dateMeasurement +
+                '}';
+    }
 }

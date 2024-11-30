@@ -8,6 +8,8 @@ import ru.dmitrii.springcourse.SensorRestAPI.models.Measurements;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.repositories.MeasurementsRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class MeasurementsService {
@@ -16,6 +18,10 @@ public class MeasurementsService {
     @Autowired
     public MeasurementsService(MeasurementsRepository measurementsRepository) {
         this.measurementsRepository = measurementsRepository;
+    }
+
+    public List<Measurements>findAll() {
+        return measurementsRepository.findAll();
     }
 
     public void save(Measurements measurements) {
