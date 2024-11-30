@@ -43,14 +43,21 @@ public class MeasurementsService {
         return measRet;
     }
 
+    public String getRainyDays() {
+        List<Measurements> measurements = measurementsRepository.findAll();
+        int days = 0;
+        for(Measurements m : measurements) {
+            if (m.isRaining()) ++days;
+        }
+        return "Raining days: " + days;
+    }
+
     public void save(Measurements measurements) {
         Sensor sensor = measurements.getSensor();
         measurements.setSensor(sensor);
         sensor.getMeasurements().add(measurements);
-//        sensor.setMeasurement(measurements);
         measurementsRepository.save(measurements);
         Hibernate.initialize(sensor); // todo sensor may be useful after saving measures...
     }
-
 
 }

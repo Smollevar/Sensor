@@ -55,9 +55,14 @@ public class MeasurementsController {
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<MeasurementsDTO> getAllMeasurements() {
         return measurementsService.getAllMeasurementsDTO();
+    }
+
+    @GetMapping("/rainyDaysCount")
+    public String RainyDaysCount() {
+        return measurementsService.getRainyDays();
     }
 
     @ExceptionHandler()
