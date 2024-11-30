@@ -1,10 +1,5 @@
 package ru.dmitrii.springcourse.SensorRestAPI.dto;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
 import jdk.jfr.Timestamp;
 import org.hibernate.validator.constraints.Range;
@@ -12,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.util.*;
 
 import java.util.Date;
@@ -20,36 +14,24 @@ import java.util.List;
 
 public class MeasurementsDTO {
 
-    @Column(name = "value")
     @Range(min = -100, max = 100, message = "temperature must being between -100 and 100")
     private float value;
 
-    @Column(name = "raining")
     @NotNull(message = "filed must being filled up")
     private boolean raining;
 
-    @OneToOne
-    @JoinColumn(name = "name", referencedColumnName = "name")
-    @NotNull(message = "Each measure must have sensor")
-    // todo add validation of the sensor from database.
-    private Sensor sensor;
-
     @Timestamp
-    @Column(name = "datemeasurement")
     private Date dateMeasurement;
 
-//    @ManyToOne
-//    @JoinColumn(name = "name", referencedColumnName = "name")
-//    @NotNull(message = "Each measure must have sensor")
-//    private SensorDTO sensorDTO;
+    @NotNull(message = "Each measure must have sensor")
+    private SensorDTO sensorDTO;
 
     public MeasurementsDTO() {
     }
 
-    public MeasurementsDTO(float value, boolean raining, Sensor sensor, Date dateMeasurement) {
+    public MeasurementsDTO(float value, boolean raining, Date dateMeasurement) {
         this.value = value;
         this.raining = raining;
-        this.sensor = sensor;
         this.dateMeasurement = dateMeasurement;
     }
 
@@ -71,12 +53,12 @@ public class MeasurementsDTO {
         this.raining = raining;
     }
 
-    public @NotNull(message = "Each measure must have sensor") Sensor getSensor() {
-        return sensor;
+    public @NotNull(message = "Each measure must have sensor") SensorDTO getSensorDTO() {
+        return sensorDTO;
     }
 
-    public void setSensor(@NotNull(message = "Each measure must have sensor") Sensor sensor) {
-        this.sensor = sensor;
+    public void setSensorDTO(@NotNull(message = "Each measure must have sensor") SensorDTO sensorDTO) {
+        this.sensorDTO = sensorDTO;
     }
 
     public Date getDateMeasurement() {
@@ -124,7 +106,6 @@ public class MeasurementsDTO {
         return "MeasurementsDTO{" +
                 "value=" + value +
                 ", raining=" + raining +
-                ", sensor=" + sensor +
                 ", dateMeasurement=" + dateMeasurement +
                 '}';
     }

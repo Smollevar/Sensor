@@ -1,6 +1,5 @@
 package ru.dmitrii.springcourse.SensorRestAPI.dto;
 
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.http.HttpStatus;
@@ -20,9 +19,6 @@ public class SensorDTO {
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 3, max = 30, message = "Name should be between 3 and 30 symbols")
     private String name;
-
-    @OneToMany(mappedBy = "sensor")
-    private List <MeasurementsDTO> measurementsDTO; // todo add here only name of sensor and enrich link on the sensor while writing and reading objects with DB.
 
     public String getName() {
         return name;
@@ -63,14 +59,6 @@ public class SensorDTO {
         }
 
         return re;
-    }
-
-    public List<MeasurementsDTO> getMeasurementsDTO() {
-        return measurementsDTO;
-    }
-
-    public void setMeasurementsDTO(List<MeasurementsDTO> measurementsDTO) {
-        this.measurementsDTO = measurementsDTO;
     }
 
     @Override
