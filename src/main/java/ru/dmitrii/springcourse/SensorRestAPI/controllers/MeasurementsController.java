@@ -57,18 +57,7 @@ public class MeasurementsController {
 
     @GetMapping()
     public List<MeasurementsDTO> getAllMeasurements() {
-
-        List<Measurements> measurements = measurementsService.findAll();
-        List<MeasurementsDTO> measRet = new ArrayList<>();
-
-        for(int i = 0; i < measurements.size(); i++) {
-            measRet.add(modelMapper.map(measurements.get(i), MeasurementsDTO.class));
-            SensorDTO sdto = new SensorDTO();
-            sdto.setName(measurements.get(i).getSensor().getName());
-            measRet.get(i).setSensorDTO(sdto);
-        }
-
-        return measRet;
+        return measurementsService.getAllMeasurementsDTO();
     }
 
     @ExceptionHandler()
