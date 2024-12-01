@@ -39,8 +39,6 @@ public class SensorController {
         return sensorDTOs;
     }
 
-    // todo create method to send http query via RestTemplate...
-
     @PostMapping("/registration")
     public ResponseEntity<HttpStatus> registration(@RequestBody @Valid SensorDTO sensorDTO,
                                                    BindingResult bindingResult) {

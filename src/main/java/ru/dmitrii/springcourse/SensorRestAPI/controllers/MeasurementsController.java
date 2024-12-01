@@ -8,14 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.dmitrii.springcourse.SensorRestAPI.dto.MeasurementsDTO;
-import ru.dmitrii.springcourse.SensorRestAPI.dto.SensorDTO;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Measurements;
 import ru.dmitrii.springcourse.SensorRestAPI.models.Sensor;
 import ru.dmitrii.springcourse.SensorRestAPI.services.MeasurementsService;
 import ru.dmitrii.springcourse.SensorRestAPI.services.SensorService;
 import ru.dmitrii.springcourse.SensorRestAPI.util.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +34,6 @@ public class MeasurementsController {
     @PostMapping("/add")
     public ResponseEntity<HttpStatus> addMeasurement(@RequestBody @Valid MeasurementsDTO measurementDTO,
                                                      BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) throw MeasurementsDTO.collectErrorMessage(bindingResult);
 
         if ((sensorService.findByName(measurementDTO.getSensorDTO().getName()) == null))
